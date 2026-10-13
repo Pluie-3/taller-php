@@ -4,57 +4,120 @@ body {
   margin: 0;
   padding: 20px;
 }
-
 h1 {
   text-align: center;
   color: #f5ddb5;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
-
 .tarjetas {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
 }
-
 .tarjeta {
   background-color: #f5ddb5;
-  padding: 25px;
+  padding: 20px 25px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
-
 .tarjeta h3 {
   margin: 0;
   color: #473c33;
   font-size: 1.2rem;
   text-align: center;
 }
-
 .tarjeta p {
   margin: 0;
   color: #555;
   line-height: 1.5;
   font-size: 0.95rem;
-  text-align: center; /* <-- Aquí se agregó para centrar el texto */
+  text-align: center;
 }
-
-.tarjeta div {
+.tarjeta-volver {
   display: flex;
-  justify-content: center;
-  gap: 15px;
-  margin-top: 5px;
+  justify-content: flex-start;
+  margin-bottom: 5px;
 }
-
-.tarjeta div a {
+.tarjeta a,
+.btn-volver {
   text-decoration: none;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: #63554a;
 }
-
-.tarjeta div a:hover {
+.tarjeta a:hover,
+.btn-volver:hover {
   color: #6b4104;
+}
+
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+label {
+  font-weight: bold;
+  color: #473c33;
+  font-size: 1.15rem; 
+  text-align: center; 
+  display: block;
+  width: 100%;
+}
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #c4b49d;
+  border-radius: 8px;
+  background-color: #fff8ee;
+  box-sizing: border-box;
+  font-size: 0.95rem;
+  color: #333;
+}
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  outline: none;
+  border-color: #63554a;
+}
+button {
+  background-color: #63554a;
+  color: #f5ddb5;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+button:hover {
+  background-color: #4f4239; /* Un tono un poco más oscuro para que se note el cambio al pasar el mouse */
+}
+.resultado {
+  margin-top: 10px;
+  padding: 12px 15px;
+  background-color: #e6d3b3;
+  border-radius: 6px;
+  color: #332b25;
+  font-size: 1rem;
+  text-align: center;
+  word-break: break-word;
+}
+.contenedor-ejercicio {
+  max-width: 480px;
+  margin: 0 auto;
 }
