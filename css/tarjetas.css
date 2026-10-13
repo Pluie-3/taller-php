@@ -1,0 +1,60 @@
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #63554a;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #f5ddb5;
+  margin-bottom: 30px;
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.tarjeta {
+  background-color: #f5ddb5;
+  padding: 25px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tarjeta h3 {
+  margin: 0;
+  color: #473c33;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.tarjeta p {
+  margin: 0;
+  color: #555;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  text-align: center; /* <-- Aquí se agregó para centrar el texto */
+}
+
+.tarjeta div {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 5px;
+}
+
+.tarjeta div a {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #63554a;
+}
+
+.tarjeta div a:hover {
+  color: #6b4104;
+}
