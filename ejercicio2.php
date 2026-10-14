@@ -1,10 +1,8 @@
 <?php
 require_once 'classes/Matematicas.php';
-
 $numero = $_POST['numero'] ?? '';
 $operacion = $_POST['operacion'] ?? 'fibonacci';
 $resultado = null;
-
 if (isset($_POST['numero'])) {
     $numInt = intval($numero);
     $objMatematica = new Matematicas($numInt);
@@ -26,19 +24,16 @@ if (isset($_POST['numero'])) {
 </head>
 <body>
     <h1>2. Fibonacci / Factorial</h1>
-
     <div class="contenedor-ejercicio">
         <div class="tarjeta">
             <div class="tarjeta-volver">
                 <a href="index.php" class="btn-volver">← Volver al menú</a>
             </div>
-
             <form action="ejercicio2.php" method="post">
                 <div class="form-group">
                     <label for="numero">Ingrese un número:</label>
-                    <input type="number" name="numero" id="numero" min="1" max="30" value="<?= htmlspecialchars($numero) ?>" required placeholder="Ej: 8">
+                    <input type="number" name="numero" id="numero" min="1" max="30" value="<?= htmlspecialchars($numero) ?>" required>
                 </div>
-
                 <div class="form-group">
                     <label for="operacion">Tipo de cálculo:</label>
                     <select name="operacion" id="operacion">
@@ -46,10 +41,8 @@ if (isset($_POST['numero'])) {
                         <option value="factorial" <?= $operacion === 'factorial' ? 'selected' : '' ?>>Factorial</option>
                     </select>
                 </div>
-
                 <button type="submit">Calcular</button>
             </form>
-
             <?php if ($resultado !== null): ?>
                 <div class="resultado">
                     <b>Resultado (<?= ucfirst($operacion) ?>):</b><br><br>
