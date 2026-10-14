@@ -5,10 +5,13 @@ class Estadistica
     private array $invalidos = [];
     public function __construct(string $cadena = '')
     {
-        $partes = preg_split('/[\s,;]+/', trim($cadena), -1, PREG_SPLIT_NO_EMPTY);
+        $partes = preg_split('/[\s,;]+/', trim($cadena));
         foreach ($partes as $parte) {
+            if ($parte == '') {
+                continue;
+            }
             if (is_numeric($parte)) {
-                $this->numeros[] = (float) $parte;
+                $this->numeros[] = (float)$parte;
             } else {
                 $this->invalidos[] = $parte;
             }
@@ -48,7 +51,7 @@ class Estadistica
         if ($this->get_cantidad() === 0) {
             return 'N/A';
         }
-        $repeticiones = array_count_values(array_map('strval', $this->numeros));// cantidad de veces de cada valor
+        $repeticiones = array_count_values(array_map('strval', $this->numeros)); // cantidad de veces de cada valor
         $mayor = max($repeticiones);
         if ($mayor === 1 && $this->get_cantidad() > 1) {
             return 'No hay moda';
