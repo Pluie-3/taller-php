@@ -1,15 +1,9 @@
 <?php
 require_once 'classes/Estadistica.php';
 $cadena = $_POST['numeros'] ?? '';
-$promedio = null;
-$mediana = null;
-$moda = null;
+$estadistica = null;
 if (isset($_POST['numeros'])) {
     $estadistica = new Estadistica($cadena);
-    
-    $promedio = $estadistica->calcularPromedio();
-    $mediana = $estadistica->calcularMediana();
-    $moda = $estadistica->calcularModa();
 }
 ?>
 <!DOCTYPE html>
@@ -32,14 +26,23 @@ if (isset($_POST['numeros'])) {
                     <label for="numeros">Ingrese los números (separados por comas o espacios):</label>
                     <input type="text" name="numeros" id="numeros" value="<?= htmlspecialchars($cadena) ?>" required>
                 </div>
+                <p class="ayuda">Los decimales van con punto. Ejemplo: 4.5, 3, 3, 8.25</p>
                 <button type="submit">Calcular Estadísticas</button>
             </form>
-            <?php if ($promedio !== null): ?>
-                <div class="resultado">
-                    <b>Promedio:</b> <?= round($promedio, 2) ?><br><br>
-                    <b>Mediana:</b> <?= round($mediana, 2) ?><br><br>
-                    <b>Moda:</b> <?= htmlspecialchars($moda) ?>
-                </div>
+            <?php if ($estadistica !== null): ?>
+                <?php if ($estadistica->get_cantidad() === 0): ?>
+                    <div class="error">No se encontró ningún número válido.</div>
+                <?php else: ?>
+                    <div class="resultado">
+                        <b>Cantidad de datos:</b> <?= $estadistica->get_cantidad() ?><br><br>
+                        <b>Promedio (media):</b> <?= round($estadistica->get_promedio(), 2) ?><br><br>
+                        <b>Mediana:</b> <?= round($estadistica->get_mediana(), 2) ?><br><br>
+                        <b>Moda:</b> <?= htmlspecialchars($estadistica->get_moda()) ?>
+                    </div>
+                <?php endif; ?>
+                <?php if (count($estadistica->get_invalidos()) > 0): ?>
+                    <div class="aviso">Se ignoraron valores no numéricos: <?= htmlspecialchars(implode(', ', $estadistica->get_invalidos())) ?></div>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>

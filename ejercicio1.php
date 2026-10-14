@@ -1,12 +1,10 @@
 <?php
 require_once 'classes/Acronimo.php';
-
 $frase = $_POST['frase'] ?? '';
 $resultado = null;
-
 if (isset($_POST['frase'])) {
     $acronimo = new Acronimo($frase);
-    $resultado = $acronimo->convertir();
+    $resultado = $acronimo->get_acronimo();
 }
 ?>
 <!DOCTYPE html>
@@ -19,13 +17,11 @@ if (isset($_POST['frase'])) {
 </head>
 <body>
     <h1>1. Convertidor de Acrónimos</h1>
-
     <div class="contenedor-ejercicio">
         <div class="tarjeta">
             <div class="tarjeta-volver">
                 <a href="index.php" class="btn-volver">← Volver al menú</a>
             </div>
-
             <form action="ejercicio1.php" method="post">
                 <div class="form-group">
                     <label for="frase">Ingrese la frase:</label>
@@ -33,7 +29,6 @@ if (isset($_POST['frase'])) {
                 </div>
                 <button type="submit">Generar Acrónimo</button>
             </form>
-
             <?php if ($resultado !== null): ?>
                 <div class="resultado">
                     <b>Resultado:</b> <?= htmlspecialchars($resultado) ?>

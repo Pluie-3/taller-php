@@ -5,10 +5,10 @@ class Conjunto
     private array $conjuntoB = [];
     public function __construct(string $cadenaA = '', string $cadenaB = '')
     {
-        $this->conjuntoA = $this->limpiarYLimpiarDuplicados($cadenaA);
-        $this->conjuntoB = $this->limpiarYLimpiarDuplicados($cadenaB);
+        $this->conjuntoA = $this->limpiarDatos($cadenaA);
+        $this->conjuntoB = $this->limpiarDatos($cadenaB);
     }
-    private function limpiarYLimpiarDuplicados(string $cadena): array
+    private function limpiarDatos(string $cadena): array
     {
         $limpio = str_replace(' ', ',', $cadena);
         $elementos = explode(',', $limpio);

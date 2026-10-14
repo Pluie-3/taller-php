@@ -1,74 +1,58 @@
 <?php
-
 class Estadistica
 {
-private array $numeros = [];
-public function __construct(string $cadenaNumeros = '')
+    private array $numeros = [];
+    private array $invalidos = [];
+    public function __construct(string $cadena = '')
     {
-        $limpio = str_replace(' ', ',', $cadenaNumeros);
-        $partes = explode(',', $limpio);
-        foreach ($partes as $item) {
-            $item = trim($item);
-            if ($item !== '' && is_numeric($item)) {
-                $this->numeros[] = (float)$item;
+        $partes = preg_split('/[\s,;]+/', trim($cadena), -1, PREG_SPLIT_NO_EMPTY);
+        foreach ($partes as $parte) {
+            if (is_numeric($parte)) {
+                $this->numeros[] = (float) $parte;
+            } else {
+                $this->invalidos[] = $parte;
             }
         }
     }
-     public function calcularPromedio(): float
+    public function get_cantidad(): int
     {
-        $total = count($this->numeros);
+        return count($this->numeros);
+    }
+    public function get_invalidos(): array
+    {
+        return $this->invalidos;
+    }
+    public function get_promedio(): float
+    {
+        if ($this->get_cantidad() === 0) {
+            return 0;
+        }
+        return array_sum($this->numeros) / $this->get_cantidad();
+    }
+    public function get_mediana(): float
+    {
+        $total = $this->get_cantidad();
         if ($total === 0) {
             return 0;
         }
-        $suma = 0;
-        foreach ($this->numeros as $num) {
-            $suma += $num;
+        $ordenados = $this->numeros;
+        sort($ordenados);
+        $centro = intdiv($total, 2);
+        if ($total % 2 === 0) {
+            return ($ordenados[$centro - 1] + $ordenados[$centro]) / 2;
         }
-        return $suma / $total;
+        return $ordenados[$centro];
     }
-    public function calcularMediana(): float
+    public function get_moda(): string
     {
-        $cantidad = count($this->numeros);
-        if ($cantidad === 0) {
-            return 0;
-        }
-        $datos = $this->numeros;
-        sort($datos);
-        $mitad = (int)($cantidad / 2);
-        if ($cantidad % 2 === 0) {
-            return ($datos[$mitad - 1] + $datos[$mitad]) / 2;
-        }
-        return $datos[$mitad];
-    }
-    public function calcularModa(): string
-    {
-        if (empty($this->numeros)) {
+        if ($this->get_cantidad() === 0) {
             return 'N/A';
         }
-        $conteo = [];
-        foreach ($this->numeros as $num) {
-            $clave = (string)$num;
-            if (isset($conteo[$clave])) {
-                $conteo[$clave]++;
-            } else {
-                $conteo[$clave] = 1;
-            }
-        }
-        $maxRepeticiones = 0;
-        foreach ($conteo as $cant) {
-            if ($cant > $maxRepeticiones) {
-                $maxRepeticiones = $cant;
-            }
-        }
-        if ($maxRepeticiones === 1 && count($this->numeros) > 1) {
+        $repeticiones = array_count_values(array_map('strval', $this->numeros));// cantidad de veces de cada valor
+        $mayor = max($repeticiones);
+        if ($mayor === 1 && $this->get_cantidad() > 1) {
             return 'No hay moda';
         }
-        $modas = [];
-        foreach ($conteo as $num => $cant) {
-            if ($cant === $maxRepeticiones) {
-                $modas[] = $num;
-            }
-        }
-        return implode(', ', $modas);
+        return implode(', ', array_keys($repeticiones, $mayor));
     }
 }

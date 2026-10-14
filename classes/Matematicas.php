@@ -1,31 +1,48 @@
 <?php
-
 class Matematicas
 {
+    const MAX_FIBONACCI = 90;
+    const MAX_FACTORIAL = 20;
     private int $numero;
-    public function __construct(int $numero = 0)
+    private string $aviso = '';
+    public function __construct(int $numero)
     {
-        // Limita a mínimo 1 para evitar secuencias negativas o cero
         $this->numero = max(1, $numero);
     }
-    public function obtenerFibonacci(): array
+    public function get_aviso(): string
     {
-        if ($this->numero === 1) {
-            return [0];
-        }
-        $secuencia = [0, 1];
-        for ($i = 2; $i < $this->numero; $i++) {
-            $secuencia[] = $secuencia[$i - 1] + $secuencia[$i - 2];
-        }
-        return $secuencia;
+        return $this->aviso;
     }
-    public function obtenerFactorial(): array
+    public function get_fibonacci(): array
     {
+        $limite = $this->numero;
+        if ($limite > self::MAX_FIBONACCI) {
+            $limite = self::MAX_FIBONACCI;
+            $this->aviso = 'Se muestran solo los primeros ' . self::MAX_FIBONACCI . ' términos.';
+        }
+        $serie = [];
+        $anterior = 0;
+        $actual = 1;
+        for ($i = 0; $i < $limite; $i++) {
+            $serie[] = $anterior;
+            $siguiente = $anterior + $actual;
+            $anterior = $actual;
+            $actual = $siguiente;
+        }
+        return $serie;
+    }
+    public function get_factorial(): array
+    {
+        $limite = $this->numero;
+        if ($limite > self::MAX_FACTORIAL) {
+            $limite = self::MAX_FACTORIAL;
+            $this->aviso = 'Se calcula hasta ' . self::MAX_FACTORIAL . '! porque después el resultado excede el tamaño de un entero.';
+        }
         $pasos = [];
-        $acumulado = 1;
-        for ($i = 1; $i <= $this->numero; $i++) {
-            $acumulado *= $i;
-            $pasos[] = "$i! = " . number_format($acumulado, 0, '', '.');
+        $producto = 1;
+        for ($i = 1; $i <= $limite; $i++) {
+            $producto = $producto * $i;
+            $pasos[] = $i . '! = ' . number_format($producto, 0, '', '.');
         }
         return $pasos;
     }
