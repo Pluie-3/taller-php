@@ -105,7 +105,7 @@ button {
   transition: background-color 0.2s ease;
 }
 button:hover {
-  background-color: #4f4239; /* Un tono un poco más oscuro para que se note el cambio al pasar el mouse */
+  background-color: #4f4239;
 }
 .resultado {
   margin-top: 10px;
