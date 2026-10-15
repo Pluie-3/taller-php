@@ -129,3 +129,59 @@ hr {
 .resultado-lista {
   text-align: left;
 }
+.organigrama-wrapper {/*Estilos para el Organigrama (Ejercicio 6)*/
+  display: flex !important;
+  justify-content: center;
+  overflow-x: auto;
+  padding: 15px 5px;
+  width: 100%;
+}
+.organigrama-nodo {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center;
+}
+
+.caja-valor {
+  background-color: #63554a;
+  color: #f5ddb5;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  display: inline-block;
+}
+
+.caja-vacia {
+  background-color: #edc786;
+  color: #81491c;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-style: italic;
+  display: inline-block;
+}
+
+.organigrama-hijos {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 2px dashed #63554a;
+}
+
+.rama-columna {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center;
+}
+
+.rama-tag {
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: #63554a;
+  margin-bottom: 4px;
+}
