@@ -1,16 +1,11 @@
 <?php
 require_once 'classes/ArbolBinario.php';
-$entrada = $_POST['valores'] ?? '';
+$preorden = $_POST['preorden'] ?? '';
+$inorden = $_POST['inorden'] ?? '';
+$postorden = $_POST['postorden'] ?? '';
 $arbol = null;
-if (isset($_POST['valores']) && trim($entrada) !== '') {
-    $arbol = new ArbolBinario();
-    $elementos = preg_split('/[\s,]+/', trim($entrada));
-
-    foreach ($elementos as $elem) {
-        if ($elem !== '') {
-            $arbol->insertar($elem);
-        }
-    }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $arbol = new ArbolBinario($preorden, $inorden, $postorden);
 }
 ?>
 <!DOCTYPE html>
@@ -22,30 +17,48 @@ if (isset($_POST['valores']) && trim($entrada) !== '') {
     <link rel="stylesheet" href="css/tarjetas.css">
 </head>
 <body>
-    <h1>6. Árbol Binario</h1>
-    <div class="contenedor-ejercicio">
+    <h1>6. Árbol Binario por Recorridos</h1>
+    <div class="contenedor-ejercicio ancho">
         <div class="tarjeta">
             <div class="tarjeta-volver">
                 <a href="index.php" class="btn-volver">← Volver al menú</a>
             </div>
             <form action="ejercicio6.php" method="post">
                 <div class="form-group">
-                    <label for="valores">Ingrese los valores (separados por comas o espacios):</label>
-                    <input type="text" name="valores" id="valores" value="<?= htmlspecialchars($entrada) ?>" required placeholder="Ej: 8, 3, 10, 1, 6">
+                    <label for="preorden">Preorden:</label>
+                    <input type="text" name="preorden" id="preorden" value="<?= htmlspecialchars($preorden) ?>" placeholder="A B D E C">
                 </div>
-                <button type="submit">Generar Árbol y Recorridos</button>
+                <div class="form-group">
+                    <label for="inorden">Inorden:</label>
+                    <input type="text" name="inorden" id="inorden" value="<?= htmlspecialchars($inorden) ?>" placeholder="D B E A C">
+                </div>
+                <div class="form-group">
+                    <label for="postorden">Postorden:</label>
+                    <input type="text" name="postorden" id="postorden" value="<?= htmlspecialchars($postorden) ?>" placeholder="D E B C A">
+                </div>
+                <p class="ayuda">Ingrese mínimo dos recorridos. Los nodos se separan con espacios, comas o flechas (→). Si ingresa los tres, se usa preorden - inorden.</p>
+                <button type="submit">Construir árbol</button>
             </form>
-            <?php if ($arbol !== null && $arbol->get_raiz() !== null): ?>
-                <div class="resultado resultado-lista">
-                    <b>Preorden (Raíz-Izq-Der):</b> <?= implode(' → ', $arbol->preorden()) ?><br><br>
-                    <b>Inorden (Izq-Raíz-Der):</b> <?= implode(' → ', $arbol->inorden()) ?><br><br>
-                    <b>Postorden (Izq-Der-Raíz):</b> <?= implode(' → ', $arbol->postorden()) ?>
-                    <hr>
-                    <b>Estructura Visual del Árbol (Organigrama):</b>
+
+            <?php if ($arbol !== null): ?>
+                <?php if (count($arbol->get_errores()) > 0): ?>
+                    <?php foreach ($arbol->get_errores() as $mensaje): ?>
+                        <div class="error"><?= htmlspecialchars($mensaje) ?></div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="resultado resultado-lista">
+                        <b>Construido con:</b> <?= htmlspecialchars($arbol->get_metodo()) ?><br><br>
+                        <b>Preorden:</b> <?= htmlspecialchars(implode(' → ', $arbol->preorden())) ?><br>
+                        <b>Inorden:</b> <?= htmlspecialchars(implode(' → ', $arbol->inorden())) ?><br>
+                        <b>Postorden:</b> <?= htmlspecialchars(implode(' → ', $arbol->postorden())) ?>
+                    </div>
                     <div class="organigrama-wrapper">
                         <?= $arbol->dibujarOrganigrama() ?>
                     </div>
-                </div>
+                    <?php if ($arbol->get_metodo() === 'preorden - postorden'): ?>
+                        <div class="aviso">Con preorden y postorden el árbol puede no ser único; si un nodo tiene un solo hijo, se dibuja a la izquierda.</div>
+                    <?php endif; ?>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
     </div>
