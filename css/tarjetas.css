@@ -1,13 +1,31 @@
+:root {
+  --fondo: #63554a;
+  --crema: #f5ddb5;
+  --crema-claro: #fff8ee;
+  --crema-oscuro: #e6d3b3;
+  --marron: #63554a;
+  --marron-oscuro: #473c33;
+  --borde: #c4b49d;
+  --texto: #332b25;
+}
+* {
+  box-sizing: border-box; /*base*/
+}
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #63554a;
+  background-color: var(--fondo);
   margin: 0;
   padding: 20px;
 }
 h1 {
   text-align: center;
-  color: #f5ddb5;
+  color: var(--crema);
   margin-bottom: 25px;
+}
+hr {
+  border: 0;
+  border-top: 1px solid var(--borde);
+  margin: 12px 0;
 }
 .tarjetas {
   display: grid;
@@ -17,7 +35,7 @@ h1 {
   margin: 0 auto;
 }
 .tarjeta {
-  background-color: #f5ddb5;
+  background-color: var(--crema);
   padding: 20px 25px;
   border-radius: 20px;
   display: flex;
@@ -25,9 +43,15 @@ h1 {
   gap: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
+.tarjetas .tarjeta {
+  transition: transform 0.15s ease;
+}
+.tarjetas .tarjeta:hover {
+  transform: translateY(-3px);
+}
 .tarjeta h3 {
   margin: 0;
-  color: #473c33;
+  color: var(--marron-oscuro);
   font-size: 1.2rem;
   text-align: center;
 }
@@ -48,15 +72,20 @@ h1 {
   text-decoration: none;
   font-weight: 600;
   font-size: 1rem;
-  color: #63554a;
+  color: var(--marron);
 }
 .tarjeta a:hover,
 .btn-volver:hover {
   color: #6b4104;
 }
-
-
-form {
+.contenedor-ejercicio { /*Contenedor de cada ejercicio*/
+  max-width: 480px;
+  margin: 0 auto;
+}
+.contenedor-ejercicio.ancho {
+  max-width: 760px;
+}
+form {/*Formularios*/
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -67,11 +96,18 @@ form {
   gap: 8px;
   width: 100%;
 }
+.fila {
+  display: flex;
+  gap: 12px;
+}
+.fila .form-group {
+  flex: 1;
+}
 label {
   font-weight: bold;
-  color: #473c33;
-  font-size: 1.15rem; 
-  text-align: center; 
+  color: var(--marron-oscuro);
+  font-size: 1.15rem;
+  text-align: center;
   display: block;
   width: 100%;
 }
@@ -80,10 +116,9 @@ input[type="number"],
 select {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #c4b49d;
+  border: 1px solid var(--borde);
   border-radius: 8px;
-  background-color: #fff8ee;
-  box-sizing: border-box;
+  background-color: var(--crema-claro);
   font-size: 0.95rem;
   color: #333;
 }
@@ -91,11 +126,12 @@ input[type="text"]:focus,
 input[type="number"]:focus,
 select:focus {
   outline: none;
-  border-color: #63554a;
+  border-color: var(--marron);
+  box-shadow: 0 0 0 2px rgba(99, 85, 74, 0.25);
 }
 button {
-  background-color: #63554a;
-  color: #f5ddb5;
+  background-color: var(--marron);
+  color: var(--crema);
   border: none;
   border-radius: 8px;
   padding: 10px 16px;
@@ -107,52 +143,101 @@ button {
 button:hover {
   background-color: #4f4239;
 }
-.resultado {
+button.secundario {
+  background-color: #8a3b2c;
+  color: #fff;
+}
+button.secundario:hover {
+  background-color: #6b2c20;
+}
+.resultado {/*Mensajes y resultados*/
   margin-top: 10px;
   padding: 12px 15px;
-  background-color: #e6d3b3;
+  background-color: var(--crema-oscuro);
   border-radius: 6px;
-  color: #332b25;
+  color: var(--texto);
   font-size: 1rem;
   text-align: center;
   word-break: break-word;
 }
-.contenedor-ejercicio {
-  max-width: 480px;
-  margin: 0 auto;
-}
-hr {
-  border: 0;
-  border-top: 1px solid #c4b49d;
-  margin: 12px 0;
-}
 .resultado-lista {
   text-align: left;
 }
-.organigrama-wrapper {/*Estilos para el Organigrama (Ejercicio 6)*/
-  display: flex !important;
-  justify-content: center;
+.error,
+.aviso {
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-radius: 6px;
+  text-align: center;
+  word-break: break-word;
+}
+.error {
+  background-color: #f3c9c0;
+  color: #6b1f12;
+}
+.aviso {
+  background-color: #efe2a8;
+  color: #4a4010;
+  font-size: 0.9rem;
+}
+.ayuda {
+  font-size: 0.85rem;
+  color: #6f6154;
+  text-align: center;
+  margin: 0;
+}
+table.pasos {/* Tabla de pasos ejer. 5)*/
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+table.pasos th,
+table.pasos td {
+  border: 1px solid var(--borde);
+  padding: 6px 8px;
+  text-align: center;
+}
+table.pasos th {
+  background-color: #d9c49b;
+  color: var(--marron-oscuro);
+}
+.historial {/*Historial ejer. 7*/
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  text-align: left;
+}
+.historial li {
+  padding: 6px 4px;
+  border-bottom: 1px solid var(--borde);
+}
+.organigrama-wrapper {/* organigrama del árbol ejer. 6*/
+  display: flex;
   overflow-x: auto;
   padding: 15px 5px;
-  width: 100%;
+  background-color: var(--crema-claro);
+  border-radius: 8px;
+}
+.organigrama-wrapper > .organigrama-nodo {
+  margin: 0 auto;
 }
 .organigrama-nodo {
-  display: flex !important;
-  flex-direction: column !important;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
-
 .caja-valor {
-  background-color: #63554a;
-  color: #f5ddb5;
+  background-color: var(--marron);
+  color: var(--crema);
   padding: 8px 16px;
+  min-width: 40px;
+  text-align: center;
   border-radius: 8px;
   font-weight: bold;
   font-size: 1.1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
-  display: inline-block;
 }
-
 .caja-vacia {
   background-color: #edc786;
   color: #81491c;
@@ -160,28 +245,52 @@ hr {
   border-radius: 6px;
   font-size: 0.85rem;
   font-style: italic;
-  display: inline-block;
 }
-
 .organigrama-hijos {
-  display: flex !important;
-  flex-direction: row !important;
+  display: flex;
   justify-content: center;
-  gap: 15px;
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 2px dashed #63554a;
+  position: relative;
+  padding-top: 18px;
 }
-
+.organigrama-hijos::before {/* línea vertical que baja desde el padre */
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  height: 18px;
+  border-left: 2px solid var(--marron);
+}
 .rama-columna {
-  display: flex !important;
-  flex-direction: column !important;
+  position: relative;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  padding: 18px 10px 0;
 }
-
+.rama-columna::before,/* conectores: línea horizontal + bajada hacia cada hijo */
+.rama-columna::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 18px;
+  border-top: 2px solid var(--marron);
+}
+.rama-columna::before {
+  right: 50%;
+  border-right: 2px solid var(--marron);
+}
+.rama-columna::after {
+  left: 50%;
+  border-left: 2px solid var(--marron);
+}
+.rama-columna:first-child::before,
+.rama-columna:last-child::after {
+  border: 0;
+}
 .rama-tag {
   font-size: 0.75rem;
   font-weight: bold;
-  color: #63554a;
+  color: var(--marron);
   margin-bottom: 4px;
 }
