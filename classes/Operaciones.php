@@ -48,7 +48,6 @@ class Multiplicacion extends Operacion
         return '×';
     }
 }
-
 class Division extends Operacion
 {
     public function calcular(): float

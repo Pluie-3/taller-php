@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/Operaciones.php';
-
 class Calculadora
 {
     public function ejecutar(string $tipo, float $a, float $b): Operacion

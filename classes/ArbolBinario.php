@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . '/Nodo.php';
-
 class ArbolBinario
 {
     private ?Nodo $raiz = null;

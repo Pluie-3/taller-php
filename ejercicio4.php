@@ -28,12 +28,14 @@ function formatearConjunto(array $elementos): string
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ejercicio 4 - Conjuntos</title>
     <link rel="stylesheet" href="css/tarjetas.css">
 </head>
+
 <body>
     <h1>4. Operaciones con Conjuntos</h1>
     <div class="contenedor-ejercicio">
@@ -66,4 +68,5 @@ function formatearConjunto(array $elementos): string
         </div>
     </div>
 </body>
+
 </html>
